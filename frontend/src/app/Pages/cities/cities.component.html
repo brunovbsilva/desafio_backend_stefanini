@@ -1,0 +1,72 @@
+<div class="section_cities">
+    <h2>TABELA DE CIDADES</h2>
+    <table>
+        <thead>
+            <th>Id</th>
+            <th>Nome</th>
+            <th>UF</th>
+            <th></th>
+            <th><button (click)="getAll()">Atualizar Tabela</button></th>
+        </thead>
+        <tbody>
+            <tr *ngFor="let city of cities">
+                <td>{{city.id}}</td>
+                <td>{{city.name}}</td>
+                <td>{{city.uf}}</td>
+                <td><button (click)="edit(city)">edit</button></td>
+                <td><button (click)="delete(city.id)">delete</button></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div *ngIf="cityToEdit.id" class="section_cities">
+    <h2>EDITAR</h2>
+    <div>
+        Nome:
+        <input [(ngModel)]="cityToEdit.name" placeholder="Nome"/>
+    </div>
+    <div>
+        UF:
+        <input [(ngModel)]="cityToEdit.uf" placeholder="UF"/>
+    </div>
+    <button (click)="update(cityToEdit)" *ngIf="cityToEdit.id">Salvar</button>
+    <button (click)="cancelEdit()">Cancelar</button>
+</div>
+
+<div class="section_cities">
+    <h2>ADICIONAR CIDADE</h2>
+    <div>
+        Nome:
+        <input [(ngModel)]="cityToCreate.name" placeholder="Nome"/>
+    </div>
+    <div>
+        UF:
+        <input [(ngModel)]="cityToCreate.uf" placeholder="UF"/>
+    </div>
+    <button (click)="add(cityToCreate)" *ngIf="cityToCreate.name && cityToCreate.uf">Salvar</button>
+    <button (click)="cancel()" *ngIf="cityToCreate.name || cityToCreate.uf">Apagar</button>
+</div>
+
+<div class="section_cities">
+    <h2>BUSCAR POR ID</h2>
+    <div>
+        Id:
+        <input [(ngModel)]="idSearch" type="number" placeholder="Nome"/>
+    </div>
+    <button (click)="getById(idSearch)" *ngIf="idSearch">Buscar</button>
+
+    <table *ngIf="cityById.id">
+        <thead>
+            <th>Id</th>
+            <th>Nome</th>
+            <th>UF</th>
+        </thead>
+        <tbody>
+            <td>{{cityById.id}}</td>
+            <td>{{cityById.name}}</td>
+            <td>{{cityById.uf}}</td>
+        </tbody>
+    </table>
+</div>
+

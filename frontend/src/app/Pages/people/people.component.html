@@ -1,0 +1,105 @@
+<div class="section_people">
+    <h2>TABELA DE PESSOAS</h2>
+    <table>
+        <thead>
+            <th>Id</th>
+            <th>Nome</th>
+            <th>CPF</th>
+            <th>Cidade</th>
+            <th>UF</th>
+            <th>Idade</th>
+            <th></th>
+            <th><button (click)="getAll()">Atualizar Tabela</button></th>
+        </thead>
+        <tbody>
+            <tr *ngFor="let person of people">
+                <td>{{person.id}}</td>
+                <td>{{person.name}}</td>
+                <td>{{person.cpf}}</td>
+                <td>{{person.cityName}}</td>
+                <td>{{person.cityUF}}</td>
+                <td>{{person.age}}</td>
+                <td><button (click)="edit(person)">edit</button></td>
+                <td><button (click)="delete(person.id)">delete</button></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div *ngIf="personToEdit.id" class="section_people">
+    <h2>EDITAR</h2>
+    <div>
+        Nome:
+        <input [(ngModel)]="personToEdit.name" placeholder="Nome"/>
+    </div>
+    <div>
+        CPF:
+        <input [(ngModel)]="personToEdit.cpf" placeholder="Apenas números"/>
+    </div>
+    <div>
+        Estado:
+        <select [(ngModel)]="personToEdit.idCity">
+            <option *ngFor="let city of cities" [value]="city.id">{{city.name}}</option>
+       </select>
+    </div>
+    <div>
+        idade:
+        <input [(ngModel)]="personToEdit.age" type="number" placeholder="Idade"/>
+    </div>
+    <button (click)="update(personToEdit)" *ngIf="personToEdit.id">Salvar</button>
+    <button (click)="cancelEdit()">Cancelar</button>
+</div>
+
+<div class="section_people">
+    <h2>ADICIONAR PESSOA</h2>
+    <div>
+        Nome:
+        <input [(ngModel)]="personToCreate.name" placeholder="Nome"/>
+    </div>
+    <div>
+        CPF:
+        <input [(ngModel)]="personToCreate.cpf" type="number" placeholder="00000000000"/>
+    </div>
+    <div>
+        Estado:
+        <select [(ngModel)]="personToCreate.idCity">
+            <option *ngFor="let city of cities" [value]="city.id">{{city.name}}</option>
+       </select>
+    </div>
+    <div>
+        Idade:
+        <input [(ngModel)]="personToCreate.age" type="number"/>
+    </div>
+    <button (click)="add(personToCreate)" *ngIf="personToCreate.name && personToCreate.cpf && personToCreate.idCity && personToCreate.age">Salvar</button>
+    <button (click)="cancel()" *ngIf="personToCreate.name || personToCreate.cpf || personToCreate.idCity || personToCreate.age">Apagar</button>
+</div>
+
+<div class="section_people">
+    <h2>BUSCAR POR ID</h2>
+    <div>
+        Id:
+        <input [(ngModel)]="idSearch" type="number"/>
+    </div>
+    <button (click)="getById(idSearch)" *ngIf="idSearch">Buscar</button>
+
+    <table *ngIf="personById.id">
+        <thead>
+            <th>Id</th>
+            <th>Nome</th>
+            <th>CPF</th>
+            <th>Cidade</th>
+            <th>UF</th>
+            <th>Idade</th>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{personById.id}}</td>
+                <td>{{personById.name}}</td>
+                <td>{{personById.cpf}}</td>
+                <td>{{personById.cityName}}</td>
+                <td>{{personById.cityUF}}</td>
+                <td>{{personById.age}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
